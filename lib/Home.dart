@@ -10,6 +10,26 @@ class _HomeState extends State<Home> {
   TextEditingController _emailInput = new TextEditingController();
   TextEditingController _passwordInput = new TextEditingController();
   final focus = FocusNode();
+  String _hint = 'colaborador@compasso.com.br';
+  String _error = null;
+
+  bool _isEmpty(String validationLogin) {
+    if(validationLogin.isEmpty) {
+      return true;
+    }
+    return false;
+  }
+
+  bool _emailValidation(String validation) {
+    if(validation.contains('@') && (validation.contains('.com.br'))) {
+      
+      return true;
+    } 
+    return false;
+  }
+
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -20,11 +40,10 @@ class _HomeState extends State<Home> {
         child: Column
           (children:
            <Widget>[
-            Image.asset('assets/images/logo.png',
-            width: 245.0, height: 350.0,fit: BoxFit.contain),
+            Image.asset('assets/images/logo.png'),
             Padding(
-              padding: EdgeInsets.only(right: 60, left: 60),
-                child: TextField( //input
+              padding: EdgeInsets.only(right: 60, left: 60, top: 40),
+                child: TextField(
                   autofocus: true, //foca no primeiro input ao abrir o app
                   textInputAction: TextInputAction.next, //insere a seta de próximo no teclado
                   keyboardType: TextInputType.emailAddress, //define o teclado de email, que possui @
@@ -35,11 +54,13 @@ class _HomeState extends State<Home> {
                   },
                   decoration: InputDecoration( //define a estilização do input
                     labelText: 'E-mail', 
+                    hintText: _hint,
+                    errorText: _error,
               ),
              ),
              ),
              Padding(
-              padding: EdgeInsets.only(right: 60, left: 60),
+              padding: EdgeInsets.only(right: 60, left: 60, top: 20),
                 child: TextField(
                   obscureText: true, //esconde a senha no visor
                   focusNode: focus, //recebe o foco do input anterior
@@ -52,14 +73,30 @@ class _HomeState extends State<Home> {
              ),
              ),
               Padding(
-                padding: EdgeInsets.only(right: 30, left: 30),
+                padding: EdgeInsets.only(right: 30, left: 30, top: 35),
                   child: FlatButton(
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
                     color: Colors.orange,
                     textColor: Colors.white,
                     onPressed: (){
+                      if(_isEmpty(_emailInput.text)) {
+                        setState(() {  
+                          _error = 'Campo obrigatório.';
+                        });
+                      } else if (!_emailValidation(_emailInput.text)){
+                        setState(() {
+                          _error = 'Email inválido.';
+                        });
+                      }
+                      else{
+                        setState(() {
+                          _error = null;
+                        });
+                      }
+                      
                       print(_passwordInput.text);
                     }, 
-                      child: Text('Entrar'), 
+                      child: Text('          Entrar          '), 
                       
                     ),
                 
