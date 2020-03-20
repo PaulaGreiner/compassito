@@ -20,7 +20,9 @@ class _HomeState extends State<Home> {
         child: Column
           (children:
            <Widget>[
-             Padding(
+            Image.asset('assets/images/logo.png',
+            width: 245.0, height: 350.0,fit: BoxFit.contain),
+            Padding(
               padding: EdgeInsets.only(right: 60, left: 60),
                 child: TextField( //input
                   autofocus: true, //foca no primeiro input ao abrir o app
