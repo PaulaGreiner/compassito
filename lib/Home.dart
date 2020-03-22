@@ -1,4 +1,8 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 class Home extends StatefulWidget {
   @override
@@ -12,6 +16,18 @@ class _HomeState extends State<Home> {
   final focus = FocusNode();
   String _hint = 'colaborador@compasso.com.br';
   String _error = null;
+  String _url = 'http://192.168.0.10:8080';
+
+  _post(String email, String senha) async {
+      var body = jsonEncode({'login': email, 'senha': senha });
+      var response = await http.post(_url+"/login", body:body, headers: {
+        "Accept": "application/json",
+        "content-type": "application/json"
+      });
+      print('Response status: ${response.statusCode}');
+      print('Response body: ${response.body}');
+  }
+  
 
   bool _isEmpty(String validationLogin) {
     if(validationLogin.isEmpty) {
@@ -88,13 +104,14 @@ class _HomeState extends State<Home> {
                           _error = 'Email inválido.';
                         });
                       }
-                      else{
+                      else if(!_emailValidation(_emailInput.text) && _isEmpty(_emailInput.text) && _isEmpty(_passwordInput.text)){
                         setState(() {
                           _error = null;
                         });
+                      }else{
+                        _post(_emailInput.text, _passwordInput.text);
                       }
-                      
-                      print(_passwordInput.text);
+                     
                     }, 
                       child: Text('          Entrar          '), 
                       
