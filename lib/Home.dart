@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
@@ -27,7 +25,6 @@ class _HomeState extends State<Home> {
       print('Response status: ${response.statusCode}');
       print('Response body: ${response.body}');
   }
-  
 
   bool _isEmpty(String validationLogin) {
     if(validationLogin.isEmpty) {
@@ -44,14 +41,11 @@ class _HomeState extends State<Home> {
     return false;
   }
 
-
-
-
   @override
   Widget build(BuildContext context) {
-    return Scaffold( //Container pega a página inteira, Scaffold permite a separação da página em até três partes
+    return Scaffold(
       body: Container(
-        width: MediaQuery.of(context).size.width, //define a largura da tela. MediaQuery pega o tamanho da tela. Context faz referência a ela. 
+        width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height,
         child: Column
           (children:
@@ -60,33 +54,33 @@ class _HomeState extends State<Home> {
             Padding(
               padding: EdgeInsets.only(right: 60, left: 60, top: 40),
                 child: TextField(
-                  autofocus: true, //foca no primeiro input ao abrir o app
-                  textInputAction: TextInputAction.next, //insere a seta de próximo no teclado
-                  keyboardType: TextInputType.emailAddress, //define o teclado de email, que possui @
-                  autocorrect: false, //desativa o corretor que, por padrão, é true
-                  controller: _emailInput, //guarda os valores que estão no input
+                  autofocus: true,
+                  textInputAction: TextInputAction.next,
+                  keyboardType: TextInputType.emailAddress,
+                  autocorrect: false,
+                  controller: _emailInput,
                   onSubmitted: (event){
-                    FocusScope.of(context).requestFocus(focus); //troca o foco conforme os inputs forem preenchidos
+                    FocusScope.of(context).requestFocus(focus); 
                   },
-                  decoration: InputDecoration( //define a estilização do input
+                  decoration: InputDecoration(
                     labelText: 'E-mail', 
                     hintText: _hint,
                     errorText: _error,
+                ),
               ),
-             ),
              ),
              Padding(
               padding: EdgeInsets.only(right: 60, left: 60, top: 20),
                 child: TextField(
-                  obscureText: true, //esconde a senha no visor
-                  focusNode: focus, //recebe o foco do input anterior
+                  obscureText: true,
+                  focusNode: focus,
                   keyboardType: TextInputType.text,
                   autocorrect: false,
                   controller: _passwordInput,
                   decoration: InputDecoration(
                     labelText: 'Senha', 
+                ),
               ),
-             ),
              ),
               Padding(
                 padding: EdgeInsets.only(right: 30, left: 30, top: 35),
