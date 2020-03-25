@@ -8,16 +8,14 @@ class BurgerMenu extends StatefulWidget {
 }
 
 class _BurgerMenuState extends State<BurgerMenu> {
-
   String _url = 'http://192.168.0.10:8080';
   String accountBalance = 'Carregando...';
 
   _requestFromApi() {
-    http.get(_url+"/saldo/3", headers: {
-      "Accept": "application/json"
-    }).then((response) {
+    http.get(_url + "/saldo/3", headers: {"Accept": "application/json"}).then(
+        (response) {
       var body = jsonDecode(response.body);
-      setState(() {  
+      setState(() {
         accountBalance = body['saldo'].toString();
       });
     });
@@ -30,26 +28,28 @@ class _BurgerMenuState extends State<BurgerMenu> {
       body: Container(
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height,
-        child: Row(
-          children:
-          <Widget>[
-            Padding(
-              padding: EdgeInsets.only(bottom: 590, left: 35),
-              child: ClipOval(
-                child: Image.asset('assets/images/perfil.png',
-                  height: 150,
-                  width: 150,
-                  fit: BoxFit.cover,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: <Widget>[
+            Row(
+              children: <Widget>[
+                Padding(
+                  padding: EdgeInsets.all(45),
+                  child: ClipOval(
+                    child: Image.asset(
+                      'assets/images/perfil.png',
+                      height: 150,
+                      width: 150,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
                 ),
-              ), 
+                Text('fulano de tal')
+              ],
             ),
-            Text(
-              accountBalance,
-              ),
-          ] 
+          ],
         ),
       ),
-      
     );
   }
-} 
+}
