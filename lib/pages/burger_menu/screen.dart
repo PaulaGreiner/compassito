@@ -1,7 +1,7 @@
+import 'package:compassito/pages/burger_menu/profile_menu.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-
 import './profile_header.dart';
 
 class BurgerMenu extends StatefulWidget {
@@ -29,12 +29,17 @@ class _BurgerMenuState extends State<BurgerMenu> {
     _requestFromApi();
     return Scaffold(
       body: Container(
+        decoration: BoxDecoration(
+            image: DecorationImage(
+                image: AssetImage('assets/images/bg-menu-mobile.png'),
+                fit: BoxFit.cover)),
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
-            ProfileHeader(name)
+            ProfileHeader(name),
+            ProfileMenu(accountBalance),
           ],
         ),
       ),

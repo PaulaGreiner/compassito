@@ -12,14 +12,15 @@ class ProfileHeader extends StatelessWidget {
         Padding(
           padding: EdgeInsets.all(45),
           child: ClipOval(
-            child: Image.asset('assets/images/perfil.png',
+            child: Image.asset(
+              'assets/images/perfil.png',
               height: 150,
               width: 150,
               fit: BoxFit.cover,
             ),
           ),
         ),
-        Text(name)
+        Text(name, style: TextStyle(color: Colors.white))
       ],
     );
   }
