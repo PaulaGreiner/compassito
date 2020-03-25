@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
+import './profile_header.dart';
+
 class BurgerMenu extends StatefulWidget {
   @override
   _BurgerMenuState createState() => _BurgerMenuState();
@@ -10,6 +12,7 @@ class BurgerMenu extends StatefulWidget {
 class _BurgerMenuState extends State<BurgerMenu> {
   String _url = 'http://192.168.0.10:8080';
   String accountBalance = 'Carregando...';
+  String name = 'Cleiton';
 
   _requestFromApi() {
     http.get(_url + "/saldo/3", headers: {"Accept": "application/json"}).then(
@@ -31,22 +34,7 @@ class _BurgerMenuState extends State<BurgerMenu> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
-            Row(
-              children: <Widget>[
-                Padding(
-                  padding: EdgeInsets.all(45),
-                  child: ClipOval(
-                    child: Image.asset(
-                      'assets/images/perfil.png',
-                      height: 150,
-                      width: 150,
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                ),
-                Text('fulano de tal')
-              ],
-            ),
+            ProfileHeader(name)
           ],
         ),
       ),
