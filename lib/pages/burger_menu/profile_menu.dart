@@ -8,32 +8,78 @@ class ProfileMenu extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Column(
-        children: <Widget>[
-          Text('CP\$ $balance', style: TextStyle(color: Colors.white)),
-          Text('Sede Chapecó - SC', style: TextStyle(color: Colors.white)),
-          GestureDetector(
-              onTap: () {
-                Navigator.push(
-                    context, MaterialPageRoute(builder: (context) => Empty()));
-              },
-              child: Text('Extrato', style: TextStyle(color: Colors.white))),
-          GestureDetector(
-              onTap: () {
-                Navigator.push(
-                    context, MaterialPageRoute(builder: (context) => Empty()));
-              },
-              child: Text('Resgate', style: TextStyle(color: Colors.white))),
-          GestureDetector(
-              onTap: () {
-                Navigator.push(
-                    context, MaterialPageRoute(builder: (context) => Empty()));
-              },
-              child:
-                  Text('Transferência', style: TextStyle(color: Colors.white)))
-        ],
-      ),
+    return Column(
+      children: <Widget>[
+        Text('CP\$ $balance', style: TextStyle(color: Colors.white)),
+        Text('Sede Chapecó - SC', style: TextStyle(color: Colors.white)),
+        Menu()
+      ],
     );
+  }
+}
+
+class Menu extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Column(children: <Widget>[
+      GestureDetector(
+          onTap: () {
+            Navigator.push(
+                context, MaterialPageRoute(builder: (context) => Empty()));
+          },
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              IconButton(
+                icon: Image.asset('assets/images/extrato.png'),
+              ),
+              Text('Extrato', style: TextStyle(color: Colors.white)),
+            ],
+          )),
+      GestureDetector(
+          onTap: () {
+            Navigator.push(
+                context, MaterialPageRoute(builder: (context) => Empty()));
+          },
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              IconButton(
+                icon: Image.asset('assets/images/resgate.png'),
+              ),
+              Text('Resgate', style: TextStyle(color: Colors.white)),
+            ],
+          )),
+      GestureDetector(
+          onTap: () {
+            Navigator.push(
+                context, MaterialPageRoute(builder: (context) => Empty()));
+          },
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              IconButton(
+                icon: Image.asset('assets/images/transferencia.png'),
+              ),
+              Text('Transferência', style: TextStyle(color: Colors.white)),
+            ],
+          )),
+      GestureDetector(
+          onTap: () {
+            Navigator.push(
+                context, MaterialPageRoute(builder: (context) => Empty()));
+          },
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Icon(
+                Icons.settings,
+                color: Colors.white,
+              ),
+              Text('Meu perfil', style: TextStyle(color: Colors.white)),
+            ],
+          )),
+      Text('CP\$ Compassito', style: TextStyle(color: Colors.white))
+    ]);
   }
 }

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 class ProfileHeader extends StatelessWidget {
   final String name;
-
   const ProfileHeader(this.name);
 
   @override
