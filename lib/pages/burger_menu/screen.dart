@@ -11,13 +11,13 @@ class BurgerMenu extends StatefulWidget {
 }
 
 class _BurgerMenuState extends State<BurgerMenu> {
-  String _url = 'http://192.168.0.10:8080';
+  String _url = 'http://192.168.0.10:8090';
   String accountBalance = 'Carregando...';
   String name = 'Cleiton';
 
   _requestFromApi() {
-    http.get(_url + "/saldo/3", headers: {"Accept": "application/json"}).then(
-        (response) {
+    http.get(_url + "/saldo/", headers: {"Accept": "application/json"})
+    .then((response) {
       var body = jsonDecode(response.body);
       setState(() {
         accountBalance = body['saldo'].toString();

@@ -13,8 +13,10 @@ class _HomeState extends State<Home> {
   TextEditingController _passwordInput = new TextEditingController();
   final focus = FocusNode();
   String _hint = 'colaborador@compasso.com.br';
-  String _error = null;
-  String _url = 'http://192.168.0.10:8080';
+  String _errorEmail = null;
+  String _errorPassword = null;
+  String _url = 'http://192.168.0.10:8090';
+  String _resultado = '';
 
   _post(String email, String senha) {
     var body = jsonEncode({'login': email, 'senha': senha});
@@ -24,6 +26,26 @@ class _HomeState extends State<Home> {
     }).then((response) {
       print('Response status: ${response.statusCode}');
       print('Response body: ${response.body}');
+
+      var retorno = json.decode(response.body);
+      String token = retorno['token'];
+
+      setState(() {
+        _resultado = '$token';
+      });
+
+      if (token != null) {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => BurgerMenu(),
+          ),
+        );
+      } else {
+          setState(() {
+            _errorPassword = 'Login inválido';
+          });
+      }
     });
   }
 
@@ -64,7 +86,7 @@ class _HomeState extends State<Home> {
                 decoration: InputDecoration(
                   labelText: 'E-mail',
                   hintText: _hint,
-                  errorText: _error,
+                  errorText: _errorEmail,
                 ),
               ),
             ),
@@ -77,6 +99,7 @@ class _HomeState extends State<Home> {
                 autocorrect: false,
                 controller: _passwordInput,
                 decoration: InputDecoration(
+                  errorText: _errorPassword,
                   labelText: 'Senha',
                 ),
               ),
@@ -89,27 +112,24 @@ class _HomeState extends State<Home> {
                 color: Colors.orange,
                 textColor: Colors.white,
                 onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => BurgerMenu(),
-                    ),
-                  );
                   if (_isEmpty(_emailInput.text)) {
                     setState(() {
-                      _error = 'Campo obrigatório.';
+                      _errorEmail = 'Campo obrigatório.';
                     });
                   } else if (!_emailValidation(_emailInput.text)) {
                     setState(() {
-                      _error = 'Email inválido.';
+                      _errorEmail = 'Email inválido.';
                     });
                   } else if (!_emailValidation(_emailInput.text) &&
                       _isEmpty(_emailInput.text) &&
                       _isEmpty(_passwordInput.text)) {
                     setState(() {
-                      _error = null;
+                      _errorEmail = null;
                     });
                   } else {
+                    setState(() {
+                      _errorEmail = null;
+                    });
                     _post(_emailInput.text, _passwordInput.text);
                   }
                 },

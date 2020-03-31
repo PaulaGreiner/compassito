@@ -10,7 +10,7 @@ class ProfileMenu extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
-        Text('CP\$ $balance', style: TextStyle(color: Colors.white)),
+        Text('CP\$ $balance', style: TextStyle(color: Colors.white, fontSize: 15)),
         Text('Sede Chapecó - SC', style: TextStyle(color: Colors.white)),
         Menu()
       ],
