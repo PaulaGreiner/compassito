@@ -1,4 +1,5 @@
 import 'package:compassito/pages/burger_menu/profile_menu.dart';
+import 'package:compassito/session.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
@@ -15,8 +16,17 @@ class _BurgerMenuState extends State<BurgerMenu> {
   String accountBalance = 'Carregando...';
   String name = 'Cleiton';
 
+  _BurgerMenuState () {
+    this._requestFromApi();
+  }
+
   _requestFromApi() {
-    http.get(_url + "/saldo/", headers: {"Accept": "application/json"})
+    http.get(_url + "/saldo/3",
+      headers: {
+        "Accept": "application/json",
+        "Authorization": "Bearer ${Session.token}"
+      }
+    )
     .then((response) {
       var body = jsonDecode(response.body);
       setState(() {
@@ -27,7 +37,6 @@ class _BurgerMenuState extends State<BurgerMenu> {
 
   @override
   Widget build(BuildContext context) {
-    _requestFromApi();
     return Scaffold(
       body: Container(
         decoration: BoxDecoration(

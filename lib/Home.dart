@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import './pages/burger_menu/screen.dart';
+import './session.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -30,9 +31,7 @@ class _HomeState extends State<Home> {
       var retorno = json.decode(response.body);
       String token = retorno['token'];
 
-      setState(() {
-        _resultado = '$token';
-      });
+      Session.token = token;
 
       if (token != null) {
         Navigator.push(
