@@ -28,10 +28,13 @@ class _HomeState extends State<Home> {
       print('Response status: ${response.statusCode}');
       print('Response body: ${response.body}');
 
-      var retorno = json.decode(response.body);
-      String token = retorno['token'];
+      var bodyReturn = json.decode(response.body);
+
+      String token = bodyReturn['token'];
+      int id = bodyReturn['idUsuario'];
 
       Session.token = token;
+      Session.id = id;
 
       if (token != null) {
         Navigator.push(
@@ -41,9 +44,9 @@ class _HomeState extends State<Home> {
           ),
         );
       } else {
-          setState(() {
-            _errorPassword = 'Login inválido';
-          });
+        setState(() {
+          _errorPassword = 'Login inválido';
+        });
       }
     });
   }

@@ -4,14 +4,18 @@ import 'package:compassito/pages/empty_page.dart';
 
 class ProfileMenu extends StatelessWidget {
   final String balance;
-  const ProfileMenu(this.balance);
+  final String office;
+  final String uf;
+  const ProfileMenu(this.balance, this.office, this.uf);
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
-        Text('CP\$ $balance', style: TextStyle(color: Colors.white, fontSize: 15)),
-        Text('Sede Chapecó - SC', style: TextStyle(color: Colors.white)),
+        Text('CP\$ $balance',
+            style: TextStyle(color: Colors.white, fontSize: 15)),
+        Text(office, style: TextStyle(color: Colors.white)),
+        Text(uf, style: TextStyle(color: Colors.white)),
         Menu()
       ],
     );

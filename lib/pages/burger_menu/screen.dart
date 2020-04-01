@@ -14,23 +14,37 @@ class BurgerMenu extends StatefulWidget {
 class _BurgerMenuState extends State<BurgerMenu> {
   String _url = 'http://192.168.0.10:8090';
   String accountBalance = 'Carregando...';
-  String name = 'Cleiton';
+  String name = 'Carregando...';
+  String office = 'Carregando...';
+  String uf = 'Carregando...';
 
-  _BurgerMenuState () {
-    this._requestFromApi();
+  _BurgerMenuState() {
+    this._balanceRequest();
+    this._nameRequest();
   }
 
-  _requestFromApi() {
-    http.get(_url + "/saldo/3",
-      headers: {
-        "Accept": "application/json",
-        "Authorization": "Bearer ${Session.token}"
-      }
-    )
-    .then((response) {
+  _balanceRequest() {
+    http.get(_url + "/saldo/${Session.id}", headers: {
+      'Accept': 'application/json',
+      'Authorization': 'Bearer ${Session.token}'
+    }).then((response) {
       var body = jsonDecode(response.body);
       setState(() {
         accountBalance = body['saldo'].toString();
+      });
+    });
+  }
+
+  _nameRequest() {
+    http.get(_url + '/usuarios/${Session.id}', headers: {
+      'Accept': 'application/json',
+      'Authorization': 'Bearer ${Session.token}'
+    }).then((response) {
+      var body = jsonDecode(response.body);
+      setState(() {
+        name = body['nome'];
+        office = body['idUnidade']['cidade'];
+        uf = body['idUnidade']['uf'];
       });
     });
   }
@@ -49,7 +63,7 @@ class _BurgerMenuState extends State<BurgerMenu> {
           mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
             ProfileHeader(name),
-            ProfileMenu(accountBalance),
+            ProfileMenu(accountBalance, office, uf)
           ],
         ),
       ),
