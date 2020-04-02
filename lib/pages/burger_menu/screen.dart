@@ -63,7 +63,9 @@ class _BurgerMenuState extends State<BurgerMenu> {
           mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
             ProfileHeader(name),
-            ProfileMenu(accountBalance, office, uf)
+            Expanded(
+              child: ProfileMenu(accountBalance, office, uf)
+            ),
           ],
         ),
       ),
