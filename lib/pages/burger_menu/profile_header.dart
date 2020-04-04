@@ -9,7 +9,7 @@ class ProfileHeader extends StatelessWidget {
     return Row(
       children: <Widget>[
         Padding(
-          padding: EdgeInsets.only(left: 40, top: 40, bottom: 40, right: 20),
+          padding: EdgeInsets.only(left: 40, top: 40, bottom: 10, right: 17),
           child: ClipOval(
             child: Image.asset(
               'assets/images/perfil.png',

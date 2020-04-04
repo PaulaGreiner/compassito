@@ -12,8 +12,8 @@ class BurgerMenu extends StatefulWidget {
 }
 
 class _BurgerMenuState extends State<BurgerMenu> {
-  String _url = 'http://192.168.0.10:8090';
-  String accountBalance = 'Carregando...';
+  String _url = 'http://192.168.0.115:8090';
+  int accountBalance = null;
   String name = 'Carregando...';
   String office = 'Carregando...';
   String uf = 'Carregando...';
@@ -30,7 +30,7 @@ class _BurgerMenuState extends State<BurgerMenu> {
     }).then((response) {
       var body = jsonDecode(response.body);
       setState(() {
-        accountBalance = body['saldo'].toString();
+        accountBalance = body['saldo'];
       });
     });
   }
@@ -40,7 +40,8 @@ class _BurgerMenuState extends State<BurgerMenu> {
       'Accept': 'application/json',
       'Authorization': 'Bearer ${Session.token}'
     }).then((response) {
-      var body = jsonDecode(response.body);
+       String source = Utf8Decoder().convert(response.bodyBytes);
+      var body = jsonDecode(source);
       setState(() {
         name = body['nome'];
         office = body['idUnidade']['cidade'];
